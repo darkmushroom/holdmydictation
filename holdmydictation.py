@@ -7,18 +7,20 @@ inflate="swne"
 class HMDmain(tk.Frame):
     def __init__(self,parent, *args, **kwargs):
         tk.Frame.__init__(self,parent, *args, **kwargs)
-        
-        
 
-        #define UI elements
-        self.parent = parent
+        #set this frame to expand to %100 available space        
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(0, weight=1)
+
+        #instruct this text box to 'stick' on all sides to the frame
         self.text = Text(self)
-
-        #show UI elements by invoking the UI manager on them
         self.text.grid(sticky=inflate)
-        self.grid(sticky=inflate)
 
 if __name__ == "__main__":
     root = tk.Tk()
+    root.columnconfigure(0, weight=1)
+    root.rowconfigure(0, weight=1)
+
     HMDmain(root).grid(sticky=inflate)
+ 
     root.mainloop()
