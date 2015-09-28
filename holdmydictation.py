@@ -1,20 +1,24 @@
 import tkinter as tk
-from tkinter import Text
+from tkinter.scrolledtext import ScrolledText
 
-#indicates we want a widget to expand in all directions 
-inflate="swne"
+#indicates we want a widget to expand in all directions
+inflate = "swne"
+
 
 class HMDmain(tk.Frame):
-    def __init__(self,parent, *args, **kwargs):
-        tk.Frame.__init__(self,parent, *args, **kwargs)
+    def __init__(self, parent, *args, **kwargs):
+        tk.Frame.__init__(self, parent, *args, **kwargs)
 
-        #set this frame to expand to %100 available space        
+        #set this frame to expand to %100 available space
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
 
-        #instruct this text box to 'stick' on all sides to the frame
-        self.text = Text(self)
+        #initialise internal UI elements
+        self.text = ScrolledText(self, wrap='word')
+        
+        #add widgets to the layout manager
         self.text.grid(sticky=inflate)
+
 
 if __name__ == "__main__":
     root = tk.Tk()
@@ -22,5 +26,5 @@ if __name__ == "__main__":
     root.rowconfigure(0, weight=1)
 
     HMDmain(root).grid(sticky=inflate)
- 
+
     root.mainloop()
