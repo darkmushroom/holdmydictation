@@ -15,9 +15,10 @@ class HMDmain(tk.Frame):
 
         #initialise internal UI elements
         self.text = ScrolledText(self, wrap='word')
-        
+
         #add widgets to the layout manager
         self.text.grid(sticky=inflate)
+
 
 if __name__ == "__main__":
     root = tk.Tk()
