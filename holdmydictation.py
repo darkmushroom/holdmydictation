@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import Menu
 from tkinter.scrolledtext import ScrolledText
 
 #indicates we want a widget to expand in all directions
@@ -8,6 +9,14 @@ inflate = "swne"
 class HMDmain(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
+
+        self.parent = parent
+
+        menubar = Menu(self.parent)
+        self.parent.config(menu=menubar)
+        fileMenu = Menu(menubar)
+        fileMenu.add_command(label="Exit", command=self.quit())
+        menubar.add_cascade(label="File", menu=fileMenu)
 
         #set this frame to expand to %100 available space
         self.columnconfigure(0, weight=1)
