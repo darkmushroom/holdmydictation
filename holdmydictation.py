@@ -11,22 +11,32 @@ class HMDmain(tk.Frame):
         tk.Frame.__init__(self, parent, *args, **kwargs)
 
         self.parent = parent
-
-        menubar = Menu(self.parent)
-        self.parent.config(menu=menubar)
-        fileMenu = Menu(menubar)
-        fileMenu.add_command(label="Exit", command=self.quit())
-        menubar.add_cascade(label="File", menu=fileMenu)
+        self.parent.option_add('*tearOff', False)
 
         #set this frame to expand to %100 available space
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
 
-        #initialise internal UI elements
+        #init menu
+        menubar = Menu(self.parent)
+        self.parent.config(menu=menubar)
+
+        fileMenu = Menu(menubar)
+        fileMenu.add_command(label="Save", command=self.onSave)
+        fileMenu.add_command(label="Exit", command=self.onExit)
+        menubar.add_cascade(label="File", menu=fileMenu)
+
+        #init textbox
         self.text = ScrolledText(self, wrap='word')
 
         #add widgets to the layout manager
         self.text.grid(sticky=inflate)
+
+    def onExit(self):
+        self.quit()
+
+    def onSave(self):
+        pass
 
 
 if __name__ == "__main__":
