@@ -1,6 +1,11 @@
 import tkinter as tk
+import darkIO
 from tkinter import Menu
 from tkinter.scrolledtext import ScrolledText
+from tkinter.filedialog import askopenfile
+from tkinter.filedialog import asksaveasfilename
+from tkinter.messagebox import askyesno
+from tkinter.messagebox import showerror
 
 #indicates we want a widget to expand in all directions
 inflate = "swne"
@@ -23,6 +28,7 @@ class HMDmain(tk.Frame):
 
         fileMenu = Menu(menubar)
         fileMenu.add_command(label="Save", command=self.onSave)
+        fileMenu.add_command(label="Load", command=self.onLoad)
         fileMenu.add_command(label="Exit", command=self.onExit)
         menubar.add_cascade(label="File", menu=fileMenu)
 
@@ -36,7 +42,24 @@ class HMDmain(tk.Frame):
         self.quit()
 
     def onSave(self):
-        pass
+        darkIO.DarkIO.save(asksaveasfilename(), self.text.get(0.0, 'end'))
+
+    def onLoad(self):
+        if not askyesno(
+                "Clear All Text",
+                "Loading a new file will clear the current project \n"
+                "Would you like to continue?"):
+            return
+
+        loadText = ""
+        try:
+            fname = askopenfile()
+            loadText = darkIO.DarkIO.load(fname.name)
+        except UnicodeDecodeError:
+            showerror("Invalid File Type", "Unable to read file.")
+        else:
+            self.text.delete(0.0, 'end')
+            self.text.insert(0.0, loadText)
 
 
 if __name__ == "__main__":
