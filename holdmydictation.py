@@ -17,6 +17,7 @@ class HMDmain(tk.Frame):
 
         self.parent = parent
         self.parent.option_add('*tearOff', False)
+        self.after(50, self.onAfter)
 
         #set this frame to expand to %100 available space
         self.columnconfigure(0, weight=1)
@@ -60,6 +61,10 @@ class HMDmain(tk.Frame):
         else:
             self.text.delete(0.0, 'end')
             self.text.insert(0.0, loadText)
+
+    def onAfter(self):
+        print("Working")
+        self.after(30000, self.onAfter)
 
 
 if __name__ == "__main__":
